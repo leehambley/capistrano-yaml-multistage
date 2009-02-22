@@ -1,0 +1,28 @@
+---
+production:
+  depoy_via: remote_cache
+  deploy_to: /var/www/vhosts/www.example.com/
+  before_tasks:
+    'deploy:update': 'deploy:clean_something'
+  after_tasks:
+    'deploy:symlink': 'cache:css_assets'
+  roles:
+    app: www.example.com
+    db: db.example.com
+  
+development:
+  depoy_via: remote_cache
+  deploy_to: /var/www/vhosts/development.example.com/
+  roles:
+    app: dev.example.com
+    db: dev.example.com
+  
+preview:
+  depoy_via: copy
+  repository: https://example.com/svn-repos/trunk
+  deploy_to: /var/www/vhosts/preview.example.com/
+  after_tasks:
+    "deploy": "emailer:send_notice_to_all"
+  roles:
+    app: preview.example.com
+    db: preview.example.com

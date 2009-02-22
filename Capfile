@@ -5,12 +5,6 @@ Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
 
 @stages_from_yaml = YAML.load_file(File.join(Dir.pwd, 'config', 'stages.yml'))
 
-# Define stages
-set :this, 'that'
-set :foo, 'bar'
-
-set :deploy_via, 'copy'
-
 def load_config_for_stage(stage_name)
   config = @stages_from_yaml
   config[stage_name.to_s].each do |hash_key, hash_value|

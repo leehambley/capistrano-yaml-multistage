@@ -15,7 +15,10 @@ def load_config_for_stage(stage_name)
       # puts "Setting Before() Callback before(#{hash_key.to_s}, #{hash_value.to_s})"
       before(hash_key.to_s, hash_value.to_s)
     elsif hash_key =~ /roles/
-      role(hash_key.to_sym, hash_value.to_s)
+      hash_value.each do |role_key, role_value|
+        puts "Setting role of #{role_key} to #{role_value}"
+        role(role_key.to_sym, role_value.to_s)
+      end
     else
       # puts "Setting after(#{hash_key.to_s}, #{hash_value.to_s})"
       set(hash_key.to_sym, hash_value.to_s)
